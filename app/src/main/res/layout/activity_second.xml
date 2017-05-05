@@ -3,10 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
->
+    >
     <TextView
-        android:id="@+id/ptitle"
-        android:background="#00ffff"
+        android:background="#0000ff"
         android:gravity="center"
         android:text="省份"
         android:textSize="30dp"
