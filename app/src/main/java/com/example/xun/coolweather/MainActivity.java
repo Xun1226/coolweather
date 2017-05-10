@@ -6,20 +6,34 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private String[] data={"北京","上海","辽宁","天津","重庆","浙江","香港","澳门","台湾","黑龙江","吉林","内蒙古","河北",
-                            "河北","山西","山东","江苏","福建","江西","安徽","湖北","湖南","广东","广西","海南","贵州"};
+    private String[] data= {"北京","上海","辽宁","天津","重庆","浙江","香港","澳门","台湾","黑龙江","吉林","内蒙古","河北",
+            "河北","山西","山东","江苏","福建","江西","安徽","湖北","湖南","广东","广西","海南","贵州"};
+    private String[] citybj={"海淀", "朝阳", "顺义", "怀柔", "通州", "昌平", "延庆", "丰台", "石景山", "大兴", "房山", "密云", "门头沟", "平谷"};
+    private String[] cityzj={"杭州","湖州","嘉兴","宁波","绍兴","台州","温州","丽水","金华","衢州","舟山"};
+    String[] city={""};
+    private Button backBtn=null;
 //    private List<Provice> proviceList=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        backBtn= (Button) findViewById(R.id.title_back);
+        backBtn.setVisibility(View.GONE);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(
                 MainActivity.this,android.R.layout.simple_list_item_1,data);
         ListView listView= (ListView) findViewById(R.id.list_view);
@@ -33,9 +47,14 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                Provice provice=proviceList.get(position);
                 Toast.makeText(MainActivity.this,data[position],Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(MainActivity.this,Second.class);
-                intent.putExtra("provice",data[position]);
-                startActivity(intent);
+                if(data[position].equals("北京")){
+                    city=citybj;
+                }
+                ArrayAdapter<String> adapter=new ArrayAdapter<String>(
+                        MainActivity.this,android.R.layout.simple_list_item_1,city);
+                ListView listView= (ListView) findViewById(R.id.list_view);
+                listView.setAdapter(adapter);
+                backBtn.setVisibility(View.VISIBLE);
             }
         });
     }
